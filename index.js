@@ -37,10 +37,10 @@ async function run() {
         //POST API
 
         app.post('/destinations', async (req, res) => {
-
-            console.log(req.body);
-
-            res.send('hitted')
+            const destination = req.body
+            const result = await destinationCollection.insertOne(destination)
+            console.log(result);
+            res.json(result);
         })
 
         //DELETE API
