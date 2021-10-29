@@ -23,7 +23,7 @@ async function run() {
 
         const database = client.db("travelService");
         const destinationCollection = database.collection("destinations");
-        console.log(database);
+
 
 
         //GET API
@@ -36,6 +36,12 @@ async function run() {
 
         //POST API
 
+        app.post('/destinations', async (req, res) => {
+
+            console.log(req.body);
+
+            res.send('hitted')
+        })
 
         //DELETE API
 
