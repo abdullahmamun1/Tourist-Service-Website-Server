@@ -27,14 +27,16 @@ async function run() {
         const orderCollection = database.collection("orders");
 
 
-
         //GET API
+
+        //GET ALL DESTINATIONS API
         app.get('/destinations', async (req, res) => {
             const cursor = destinationCollection.find({});
             const destinations = await cursor.toArray();
             res.json(destinations);
         })
 
+        //GET SPECIFIC DESTINATION API
         app.get('/destinations/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
@@ -42,12 +44,15 @@ async function run() {
             res.json(result)
         })
 
+
+        // GET ALL ORDERS API
         app.get('/orders', async (req, res) => {
             const cursor = orderCollection.find({});
             const orders = await cursor.toArray();
             res.json(orders);
         })
 
+        // GET ORDERS BY EMAIL
         app.get('/orders/:email', async (req, res) => {
             const userId = req.params.email;
             console.log(userId);
@@ -58,22 +63,25 @@ async function run() {
         })
 
 
-
-
         //POST API
 
+        //POST DESTINATION API
         app.post('/destinations', async (req, res) => {
             const destination = req.body
             const result = await destinationCollection.insertOne(destination)
             console.log(result);
             res.json(result);
         })
+
+
+        // POST ORDER API
         app.post('/orders', async (req, res) => {
             const order = req.body;
             const result = await orderCollection.insertOne(order)
             console.log(result);
             res.json(result);
         })
+
 
         //DELETE API
 
