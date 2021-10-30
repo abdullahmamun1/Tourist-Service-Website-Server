@@ -52,7 +52,7 @@ async function run() {
             res.json(orders);
         })
 
-        // GET ORDERS BY ID
+        // GET SPECIFIC ORDER
         app.get('/orders/:id', async (req, res) => {
             const id = req.params.id;
             console.log(id);
@@ -97,6 +97,21 @@ async function run() {
 
 
         //UPDATE API
+        // app.put('/orders/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     const options = { upsert: true };
+        //     const filter = { _id: ObjectId(id) };
+
+        //     const updateDoc = {
+        //         $set: {
+
+        //         },
+        //     };
+
+        //     const result = await movies.updateOne(filter, updateDoc, options);
+        //     res.json(result)
+
+        // })
 
     }
     finally {
