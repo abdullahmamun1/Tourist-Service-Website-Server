@@ -33,13 +33,6 @@ async function run() {
             const cursor = destinationCollection.find({});
             const destinations = await cursor.toArray();
             res.json(destinations);
-
-        })
-        app.get('/orders', async (req, res) => {
-            const cursor = orderCollection.find({});
-            const orders = await cursor.toArray();
-            res.json(orders);
-
         })
 
         app.get('/destinations/:id', async (req, res) => {
@@ -47,8 +40,25 @@ async function run() {
             const query = { _id: ObjectId(id) };
             const result = await destinationCollection.findOne(query)
             res.json(result)
-
         })
+
+        app.get('/orders', async (req, res) => {
+            const cursor = orderCollection.find({});
+            const orders = await cursor.toArray();
+            res.json(orders);
+        })
+
+        app.get('/orders/:email', async (req, res) => {
+            const userId = req.params.email;
+            console.log(userId);
+            const query = { email: userId }
+            const cursor = orderCollection.find(query);
+            const user = await cursor.toArray();
+            res.json(user)
+        })
+
+
+
 
         //POST API
 
