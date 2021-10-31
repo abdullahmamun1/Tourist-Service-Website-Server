@@ -60,6 +60,8 @@ async function run() {
         })
 
 
+
+
         //POST API
 
         //POST DESTINATION API
@@ -78,22 +80,13 @@ async function run() {
         })
 
 
-        //DELETE ORDER API
-        app.delete('/orders/:id', async (req, res) => {
-            const id = req.params.id;
-            const query = { _id: ObjectId(id) };
-            const result = await orderCollection.deleteOne(query);
-            res.json(result);
-
-        })
 
 
-        //UPDATE API
+        //UPDATE ORDER API
         app.put('/orders/:id', async (req, res) => {
             const id = req.params.id;
             const options = { upsert: true };
             const filter = { _id: ObjectId(id) };
-
             const updateDoc = {
                 $set: {
                     status: "Approved"
@@ -101,9 +94,18 @@ async function run() {
             };
             const result = await orderCollection.updateOne(filter, updateDoc, options);
             res.json(result)
-
         })
 
+
+
+
+        //DELETE ORDER API
+        app.delete('/orders/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await orderCollection.deleteOne(query);
+            res.json(result);
+        })
     }
     finally {
         // await client.close()
