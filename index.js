@@ -20,7 +20,6 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         await client.connect();
-        console.log('db connected');
 
         const database = client.db("travelService");
         const destinationCollection = database.collection("destinations");
@@ -55,13 +54,10 @@ async function run() {
         // GET SPECIFIC ORDER
         app.get('/orders/:id', async (req, res) => {
             const id = req.params.id;
-            console.log(id);
             const query = { _id: ObjectId(id) }
             const order = await orderCollection.findOne(query);
-
             res.json(order)
         })
-
 
 
         //POST API
@@ -70,7 +66,6 @@ async function run() {
         app.post('/destinations', async (req, res) => {
             const destination = req.body
             const result = await destinationCollection.insertOne(destination)
-            console.log(result);
             res.json(result);
         })
 
@@ -79,7 +74,6 @@ async function run() {
         app.post('/orders', async (req, res) => {
             const order = req.body;
             const result = await orderCollection.insertOne(order)
-            console.log(result);
             res.json(result);
         })
 
@@ -87,9 +81,7 @@ async function run() {
         //DELETE ORDER API
         app.delete('/orders/:id', async (req, res) => {
             const id = req.params.id;
-            console.log(id);
             const query = { _id: ObjectId(id) };
-            console.log(query);
             const result = await orderCollection.deleteOne(query);
             res.json(result);
 
@@ -98,9 +90,7 @@ async function run() {
 
         //UPDATE API
         app.put('/orders/:id', async (req, res) => {
-            console.log(req.body);
             const id = req.params.id;
-            console.log(id);
             const options = { upsert: true };
             const filter = { _id: ObjectId(id) };
 
@@ -109,7 +99,6 @@ async function run() {
                     status: "Approved"
                 },
             };
-
             const result = await orderCollection.updateOne(filter, updateDoc, options);
             res.json(result)
 
