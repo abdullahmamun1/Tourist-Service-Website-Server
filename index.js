@@ -97,21 +97,23 @@ async function run() {
 
 
         //UPDATE API
-        // app.put('/orders/:id', async (req, res) => {
-        //     const id = req.params.id;
-        //     const options = { upsert: true };
-        //     const filter = { _id: ObjectId(id) };
+        app.put('/orders/:id', async (req, res) => {
+            console.log(req.body);
+            const id = req.params.id;
+            console.log(id);
+            const options = { upsert: true };
+            const filter = { _id: ObjectId(id) };
 
-        //     const updateDoc = {
-        //         $set: {
+            const updateDoc = {
+                $set: {
+                    status: "Approved"
+                },
+            };
 
-        //         },
-        //     };
+            const result = await orderCollection.updateOne(filter, updateDoc, options);
+            res.json(result)
 
-        //     const result = await movies.updateOne(filter, updateDoc, options);
-        //     res.json(result)
-
-        // })
+        })
 
     }
     finally {
